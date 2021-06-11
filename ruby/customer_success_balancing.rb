@@ -48,11 +48,15 @@ class CustomerSuccessBalancing
 
   def winning_cutomer_success_id
     @available_customer_successes.size.zero? ? 0 : available_customer_successes_not_empty
-    @available_customer_successes[0].id
+    # @available_customer_successes[0].id
   end
 
   def available_customer_successes_not_empty
-    @available_customer_successes.size < 2 ? @available_customer_successes[0].id : (@available_customer_successes[0].customers == @available_customer_successes[1].customers)
+    @available_customer_successes.size < 2 ? @available_customer_successes[0].id : tie_between_two_customer_successes
+  end
+
+  def tie_between_two_customer_successes
+    @available_customer_successes[0].customers == @available_customer_successes[1].customers ? 0 : @available_customer_successes[0].id
   end
 
 end
