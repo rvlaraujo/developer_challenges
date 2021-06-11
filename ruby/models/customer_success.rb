@@ -1,7 +1,7 @@
 class CustomerSuccess
   attr_accessor :id, :score, :customers
 
-  def initialize(id, score, customers=0)
+  def initialize(id: 0, score: 0)
     @id = id
     @score = score
     @customers = 0

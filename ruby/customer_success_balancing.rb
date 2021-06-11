@@ -1,55 +1,58 @@
 require_relative 'models/customer_success'
-require_relative 'models/customer'
 
 class CustomerSuccessBalancing
-  # receive two maps and 1 array
-  def initialize(customer_success, customers, customer_success_away)
-    @customer_success = customer_success
+  attr_accessor :customers, :customer_successes, :customer_successes_away, :available_customer_successes
+
+  def initialize(customer_success, customers, customer_successes_away)
+    @customer_successes = customer_success
     @customers = customers
-    @customer_success_away = customer_success_away
+    @customer_successeseses_away = customer_successes_away
+    @available_customer_successes = []
   end
 
-  # Returns the id of the CustomerSuccess with the most customers
   def execute
     # Write your solution here
-    # 1st Checking the condition t=n/2 rounded down. If not satisfied, return 0
-    if @customer_success_away.size <= (@customer_success.size / 2).floor
-      # 2nd Remove Away Success Customers from original list
-      @available_customer_successes = []
-      @customer_success.each do |cs|
-        unless @customer_success_away.include?(cs[:id])
-          @available_customer_successes.push(CustomerSuccess.new(id=cs[:id], score=cs[:score]))
-        end
-      end
-      # 3rd Order CustomerSucces by score and Customer by size)
-      # @available_customer_successes = @available_customer_successes.sort_by { |customer_succes| customer_succes[:score] }
-      @available_customer_successes = @available_customer_successes.sort_by(&:score)
+    if minimum_number_of_available_customer_successes
+      @available_customer_successes = recover_available_customer_successes
       @customers = @customers.sort_by { |customer| customer[:score] }
-      # 4th Scroll through the customer hash by size, and assign the closest-score CustmomerSuccess.
-      @customers.each do |customer|
-        @available_customer_successes.each do |available_customer_success|
-          # if customer[:score] <= available_customer_success.score ? next : available_customer_success.add_customer
-          if customer[:score] <= available_customer_success.score
-            next
-          else
-            available_customer_success.add_customer
-          end
-        end
-      end
+      @available_customer_successes = adding_customers_to_their_respectives_customer_successes
+      return winning_cutomer_success_id
+    end
+    0
+  end
 
-      # 5th Sort Customer Successes by the size of your Customer hash. If there is a tie between the first, return 0
-      # @available_customer_successes = @available_customer_successes.sort_by { |customer_succes| customer_succes[:customers]}.reverse!
-      @available_customer_successes.sort_by(&:customers).reverse!
-      if @available_customer_successes.size == 0
-        return 0
-      elsif @available_customer_successes.size < 2
-        return @available_customer_successes[0].id
-      elsif @available_customer_successes[0].id == @available_customer_successes[1].id
-        return 0
-      else
-        return @available_customer_successes[0].id
+  private
+
+  ## Checking the condition t=n/2 rounded down
+  def minimum_number_of_available_customer_successes
+    @customer_successeseses_away.size <= (@customer_successes.size / 2).floor
+  end
+
+  def recover_available_customer_successes
+    @customer_successes.each do |cs|
+      unless @customer_successeseses_away.include?(cs[:id])
+        @available_customer_successes.push(CustomerSuccess.new(id: cs[:id], score: cs[:score]))
       end
     end
-    return 0
+    @available_customer_successes.sort_by(&:score)
   end
+
+  def adding_customers_to_their_respectives_customer_successes
+    @customers.each do |customer|
+      @available_customer_successes.each do |available_customer_success|
+        customer[:score] <= available_customer_success.score ? next : available_customer_success.add_customer
+      end
+    end
+    @available_customer_successes.sort_by(&:customers).reverse!
+  end
+
+  def winning_cutomer_success_id
+    @available_customer_successes.size.zero? ? 0 : available_customer_successes_not_empty
+    @available_customer_successes[0].id
+  end
+
+  def available_customer_successes_not_empty
+    @available_customer_successes.size < 2 ? @available_customer_successes[0].id : (@available_customer_successes[0].customers == @available_customer_successes[1].customers)
+  end
+
 end
