@@ -1,14 +1,21 @@
+require_relative 'customer'
+
 class CustomerSuccess
-  attr_accessor :id, :score, :customers
+  attr_accessor :id, :score, :customers, :customers_size
 
   def initialize(id: 0, score: 0)
     @id = id
     @score = score
-    @customers = 0
+    @customers = []
   end
 
-  def add_customer
-    @customers += 1
+  def add_customer(customer)
+    customer.add_customer_success(self)
+    @customers << customer
+  end
+
+  def customers_size
+    @customers.size
   end
 
   def to_hash
