@@ -1,3 +1,4 @@
 # Node 
 node_modules/
 ruby/Gemfile.lock
+.ruby-version

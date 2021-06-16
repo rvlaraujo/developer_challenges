@@ -1,7 +1,8 @@
 require_relative 'customer'
 
 class CustomerSuccess
-  attr_accessor :id, :score, :customers, :customers_size
+  attr_accessor :id, :score, :customers
+  attr_reader :customers_size
 
   def initialize(id: 0, score: 0)
     @id = id
@@ -14,7 +15,7 @@ class CustomerSuccess
     @customers << customer
   end
 
-  def customers_size
+  def number_of_customers
     @customers.size
   end
 
