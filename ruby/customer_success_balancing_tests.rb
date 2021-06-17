@@ -38,6 +38,7 @@ class CustomerSuccessBalancingTests < Minitest::Test
     assert_equal 0, balancer.execute
   end
 
+  # Scenario where the first CustomerSucces has all customers
   def test_scenario_five
     balancer = CustomerSuccessBalancing.new(array_to_map([100, 2, 3, 3, 4, 5]), array_to_map([10, 10, 10, 20, 20, 30, 30, 30, 20, 60]), [])
     assert_equal 1, balancer.execute
