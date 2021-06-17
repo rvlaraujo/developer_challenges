@@ -50,6 +50,7 @@ class CustomerSuccessBalancingTests < Minitest::Test
     assert_equal 0, balancer.execute
   end
 
+  # Scenario where the score of available CustomerSuccess is greater than the score of all Customer and only one CustomerSucces attend all Customers
   def test_scenario_seven
     balancer = CustomerSuccessBalancing.new(array_to_map([100, 99, 88, 3, 4, 5]), array_to_map([10, 10, 10, 20, 20, 30, 30, 30, 20, 60]), [4, 5, 6])
     assert_equal 3, balancer.execute
