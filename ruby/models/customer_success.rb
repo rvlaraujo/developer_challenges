@@ -8,6 +8,8 @@ class CustomerSuccess
     @id = id
     @score = score
     @customers = []
+
+    validate!
   end
 
   def add_customer(customer)
@@ -23,5 +25,12 @@ class CustomerSuccess
     instance_variables.map do |attribute|
       [attribute[1..-1].to_sym, instance_variable_get(attribute)]
     end.to_h
+  end
+
+  private
+
+  def validate!
+    raise ArgumentError.new(message: 'ID must be between 0 and 1000') unless @id.between?(0, 1_000)
+    raise ArgumentError.new(message: 'Score must be between 0 and 10000') unless @score.between?(0, 10_000)
   end
 end
