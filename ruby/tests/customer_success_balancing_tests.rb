@@ -70,6 +70,11 @@ class CustomerSuccessBalancingTests < Minitest::Test
     balancer = CustomerSuccessBalancing.new(customer_success, customers, customer_success_away)
     assert_equal 3, balancer.execute
   end
+
+  def test_that_maximum_number_of_customer_successes_should_be_less_one_thousand
+    @default_balancer.customer_successes = array_to_map((1..1000).to_a)
+    assert_equal 0, @default_balancer.execute
+  end
 end
 
 Minitest.run
