@@ -48,7 +48,7 @@ Após a construção do container, rodar o seguinte comando abaixo para o result
 ```
 docker run -t developer-challange:1.0 > suite_test_output.log
 ```
-O arquivo suite_test_output.log será criado na raíz do projeto
+O arquivo suite_test_output.log será criado na raíz do projeto exibido a saída da suíte de testes.
 
 
 ## Autores
