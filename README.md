@@ -50,6 +50,11 @@ docker run -t developer-challange:1.0 > suite_test_output.log
 ```
 O arquivo suite_test_output.log será criado na raíz do projeto exibido a saída da suíte de testes.
 
+Ou caso queira ver somente a saída no terminal, executar o comando
+```
+docker run -it developer-challange:1.0
+```
+
 
 ## Autores
 
