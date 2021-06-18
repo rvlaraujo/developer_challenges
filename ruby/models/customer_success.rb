@@ -30,7 +30,7 @@ class CustomerSuccess
   private
 
   def validate!
-    raise ArgumentError.new(message: 'ID must be between 0 and 1000') unless @id.between?(0, 1_000)
-    raise ArgumentError.new(message: 'Score must be between 0 and 10000') unless @score.between?(0, 10_000)
+    raise ArgumentError.new(message: 'ID must be between 0 and 1000') unless @id.positive? && @id < 1_000
+    raise ArgumentError.new(message: 'Score must be between 0 and 10000') unless @score.positive? && @score < 10_000
   end
 end
