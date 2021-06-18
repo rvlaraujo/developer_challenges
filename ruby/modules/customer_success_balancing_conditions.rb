@@ -15,4 +15,8 @@ module CustomerSuccessBalancingConditions
   def maximum_number_of_customer_successes
     @customer_successes.size < 1000 ? tie_between_two_customer_successes : 0
   end
+
+  def maximum_number_of_customers
+    @customers.size < 1_000_000
+  end
 end

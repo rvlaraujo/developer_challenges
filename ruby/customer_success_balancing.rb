@@ -18,7 +18,7 @@ class CustomerSuccessBalancing
 
   def execute
     # Write your solution here
-    if minimum_number_of_available_customer_successes
+    if minimum_number_of_available_customer_successes && maximum_number_of_customers
       @available_customer_successes = recover_available_customer_successes_sorted_by_score
       @customers = recover_customers_sorted_by_score
       @available_customer_successes = matching_customers_to_customer_successes.sort_by(&:number_of_customers).reverse!
